@@ -1,0 +1,36 @@
+{
+  "leaderboard": {
+    "alexis": {
+      "nickname": "Pastor",
+      "points": 0
+    },
+    "igna": {
+      "nickname": "El Patron",
+      "points": 0
+    },
+    "kasper": {
+      "nickname": "Kaspargus",
+      "points": 0
+    },
+    "milan": {
+      "nickname": "Econ Rice",
+      "points": 0
+    },
+    "ondra": {
+      "nickname": "Offensive Ondra",
+      "points": 0
+    },
+    "teemu": {
+      "nickname": "Winter Soldier",
+      "points": 0
+    },
+    "jesper": {
+      "nickname": "Granpa",
+      "points": 0
+    },
+    "stepanka": {
+      "nickname": "How far are we?",
+      "points": 0
+    }
+  }
+}

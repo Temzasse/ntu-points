@@ -1,0 +1,39 @@
+.modal-exit .modal-panel {
+  transform: translateX(0%);
+  will-change: transform;
+  transition: transform 0.3s cubic-bezier(.07,.82,.64,.97);
+}
+
+.modal-exit .modal-backdrop {
+  opacity: 1;
+  will-change: opacity;
+  transition: opacity 0.3s cubic-bezier(.07,.82,.64,.97);
+}
+
+.modal-exit.modal-exit-active .modal-panel {
+  transform: translateY(110%);
+}
+
+.modal-exit.modal-exit-active .modal-backdrop {
+  opacity: 0;
+}
+
+.modal-enter .modal-panel {
+  transform: translateY(110%);
+  will-change: transform;
+  transition: transform 0.3s cubic-bezier(.07,.82,.64,.97);
+}
+
+.modal-enter .modal-backdrop {
+  opacity: 0.01;
+  will-change: opacity;
+  transition: opacity 0.3s cubic-bezier(.07,.82,.64,.97);
+}
+
+.modal-enter.modal-enter-active .modal-panel {
+  transform: translateY(0%);
+}
+
+.modal-enter.modal-enter-active .modal-backdrop {
+  opacity: 1;
+}

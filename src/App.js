@@ -1,73 +1,67 @@
 import React, { Component } from 'react';
-import Gun from 'gun';
-import logo from './logo.svg';
-import './App.css';
+import * as firebase from 'firebase';
+import styled, { ThemeProvider } from 'styled-components';
+import theme from './theme';
 
-const db = Gun(`${window.location.origin}/ntupoints`);
+// Components
+import Loading from './components/Loading';
+import Leaderboard from './components/Leaderboard';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.points = db.get('points');
+    this.db = firebase.database();
     this.state = {
-      points: {
-        alexis: 0,
-        milan: 0,
-        ondra: 0,
-      },
+      leaderboard: null,
     };
   }
 
   componentDidMount() {
-    this.points.on(this.handleDbUpdate);
-  }
-
-  handleDbUpdate = (data, key) => {
-    console.log('update:', data, key);
-
-    const points = {
-      alexis: data.alexis || 0,
-      milan: data.milan || 0,
-      ondra: data.ondra || 0,
-    };
-
-    this.setState({ points });
-  }
-
-  handleClick = () => {
-    const { points } = this.state;
-
-    this.points.put({
-      alexis: points.alexis + 10,
-      milan: points.milan + 100,
-      ondra: points.ondra + 1,
+    // Get initial leaderboard
+    this.db.ref().child('leaderboard').on('value', snapshot => {
+      const leaderboard = snapshot.val();
+      this.setState({ leaderboard });
     });
   }
 
+  updatePoints = (name, points) => {
+    this.db.ref(`leaderboard/${name}/points`).set(points);
+  }
+
   render() {
+    const { leaderboard } = this.state;
+
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-          <button onClick={this.handleClick}>
-            Foooo
-          </button>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <div>
-          {Object.entries(this.state.points).map(([name, points]) =>
-            <dl key={name}>
-              <dt>Name: {name}</dt>
-              <dd>Points: {points}</dd>
-            </dl>
-          )}
-        </div>
-      </div>
+      <ThemeProvider theme={theme}>
+        <AppWrapper>
+          <Content>
+            {leaderboard
+              ? <Leaderboard
+                  leaderboard={leaderboard}
+                  updatePoints={this.updatePoints}
+                />
+              : <Loading />
+            }
+          </Content>
+        </AppWrapper>
+      </ThemeProvider>
     );
   }
 }
+
+const AppWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Nunito', sans-serif;
+`;
+const Content = styled.div`
+  width: 100%;
+  max-width: 600px;
+  min-height: 100vh;
+  position: relative;
+`;
+
+
 
 export default App;

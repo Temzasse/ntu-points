@@ -10,6 +10,7 @@
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,400,700" rel="stylesheet">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -20,6 +21,25 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <style>
+      .fade-enter {
+        opacity: 0.01;
+      }
+
+      .fade-enter.fade-enter-active {
+        opacity: 1;
+        transition: opacity 500ms ease-in;
+      }
+
+      .fade-exit {
+        opacity: 1;
+      }
+
+      .fade-exit.fade-exit-active {
+        opacity: 0.01;
+        transition: opacity 300ms ease-in;
+      }
+    </style>
   </head>
   <body>
     <noscript>
