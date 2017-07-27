@@ -1,20 +1,20 @@
-.modal-exit .modal-panel {
+.modal-leave .modal-panel {
   transform: translateX(0%);
   will-change: transform;
   transition: transform 0.3s cubic-bezier(.07,.82,.64,.97);
 }
 
-.modal-exit .modal-backdrop {
+.modal-leave .modal-backdrop {
   opacity: 1;
   will-change: opacity;
   transition: opacity 0.3s cubic-bezier(.07,.82,.64,.97);
 }
 
-.modal-exit.modal-exit-active .modal-panel {
+.modal-leave.modal-leave-active .modal-panel {
   transform: translateY(110%);
 }
 
-.modal-exit.modal-exit-active .modal-backdrop {
+.modal-leave.modal-leave-active .modal-backdrop {
   opacity: 0;
 }
 
