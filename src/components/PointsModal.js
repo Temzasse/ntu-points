@@ -26,12 +26,12 @@ const PointsModal = ({ visible, hide, item, itemKey, updatePoints }) => (
               <GivePoints
                 onClick={() => updatePoints(itemKey, item.points + 10)}
               >
-                <span>10</span>
+                <span>+10</span>
               </GivePoints>
               <TakePoints
                 onClick={() => updatePoints(itemKey, item.points - 10)}
               >
-                <span>10</span>
+                <span>-10</span>
               </TakePoints>
             </PointsButtons>
           </PanelBody>
@@ -103,9 +103,7 @@ const PointsButtons = styled.div`
 const ButtonBase = styled.button`
   border-radius: 80px;
   border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   text-align: center;
   height: 100px;
   width: 200px;
@@ -118,33 +116,13 @@ const ButtonBase = styled.button`
   &:active {
     opacity: 0.7;
   }
-
-  & > span {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-
-  & > span:before {
-    position: absolute;
-    left: -26px;
-    font-size: 32px;
-  }
 `;
 const GivePoints = styled(ButtonBase)`
   background-color: ${props => props.theme.pink};
-  margin-bottom: 32px;
-
-  & > span:before {
-    content: "+"
-  }  
+  margin-bottom: 32px; 
 `;
 const TakePoints = styled(ButtonBase)`
   background-color: #888;
-
-  & > span:before {
-    content: "-"
-  }
 `;
 const PanelFooter = styled.div`
   display: flex;

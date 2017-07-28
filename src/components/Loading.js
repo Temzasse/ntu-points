@@ -7,11 +7,22 @@ const propTypes = {
   something: PropTypes.any,
 };
 
+const phrases = [
+  'How far we are?',
+  'I\'ll sleep at some crazy bitches place',
+  'My Tinder is broken',
+];
+
+const randomBetween = (x, y) => Math.floor(Math.random() * y) + x;
+const getRandomPhrase = () => {
+  return phrases[randomBetween(0, phrases.length)];
+};
+
 const Loading = () => (
   <LoadingWrapper>
     <LoadingContent>
       <Smiley />
-      <span>How far are we?</span>
+      <span>{getRandomPhrase()}</span>
     </LoadingContent>
   </LoadingWrapper>
 );
