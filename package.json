@@ -8,6 +8,7 @@
     "polished": "^1.3.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-firebase-file-uploader": "2.2.1",
     "react-icons": "^2.2.5",
     "react-scripts": "1.0.10",
     "react-transition-group": "^1.1.3",

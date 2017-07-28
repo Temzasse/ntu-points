@@ -4,7 +4,7 @@ import * as firebase from 'firebase';
 
 import './index.css';
 import App from './App';
-// import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 
 // Initialize Firebase
 const config = {
@@ -12,11 +12,11 @@ const config = {
   authDomain: "ntu-points.firebaseapp.com",
   databaseURL: "https://ntu-points.firebaseio.com",
   projectId: "ntu-points",
-  storageBucket: "",
+  storageBucket: "ntu-points.appspot.com",
   messagingSenderId: "405623504994"
 };
 
 firebase.initializeApp(config);
 
 ReactDOM.render(<App />, document.getElementById('root'));
-// registerServiceWorker();
+registerServiceWorker();

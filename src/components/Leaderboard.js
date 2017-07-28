@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ListIcon from 'react-icons/lib/md/whatshot';
-import PointsModal from './PointsModal';
+import Modal from './Modal';
+import Avatar from './Avatar';
+import { capitalize } from '../utils';
 
 const propTypes = {
   leaderboard: PropTypes.object.isRequired,
   updatePoints: PropTypes.func.isRequired,
 };
-
-function capitalize(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
 const getName = key => key
   ? capitalize(key)
@@ -49,13 +47,13 @@ class Leaderboard extends Component {
           <Title>Leaderboard</Title>
         </Header>
 
-        <LeaderboardList>
-          {items.map(([key, { nickname, points }], index) =>
+        <LeaderboardList noScroll={modalVisible}>
+          {items.map(([key, { nickname, points, avatar }], index) =>
             <LeaderboardItem
               onClick={() => this.selectItem(key)}
               key={nickname}
             >
-              <Position>{index + 1}</Position>
+              <Avatar url={avatar} />
               <Details>
                 <Nickname>{nickname}</Nickname>
                 <Name>{getName(key)}</Name>
@@ -65,7 +63,7 @@ class Leaderboard extends Component {
           )}
         </LeaderboardList>
 
-        <PointsModal
+        <Modal
           visible={modalVisible}
           item={item}
           itemKey={selected}
@@ -106,6 +104,8 @@ const LeaderboardList = styled.ul`
   padding: 16px;
   margin: 0px;
   list-style: none;
+  height: calc(100vh - 60px);
+  overflow: ${props => props.noScroll ? 'hidden' : 'auto'};
 `;
 const LeaderboardItem = styled.li`
   padding: 8px 16px;
@@ -122,22 +122,9 @@ const LeaderboardItem = styled.li`
     background-color: ${props => props.theme.pinkLighter};
   }
 `;
-const Position = styled.div`
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  margin-right: 16px;
-  background: ${props => props.theme.pinkGradient};
-  color: #fff;
-  font-size: 24px;
-  font-weight: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 const Details = styled.div`
   flex: 1;
-  margin-right: 16px;
+  margin: 0px 16px;
   display: flex;
   flex-direction: column;
 `;
