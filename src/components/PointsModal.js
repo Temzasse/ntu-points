@@ -2,47 +2,49 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import FadeSlideUp from './FadeSlideUp';
+import CloseIcon from 'react-icons/lib/md/close';
 
 const propTypes = {
   visible: PropTypes.bool.isRequired,
-  data: PropTypes.object.isRequired,
+  item: PropTypes.object,
   hide: PropTypes.func.isRequired,
   updatePoints: PropTypes.func.isRequired,
 };
 
-const PointsModal = ({ visible, hide, data, updatePoints }) => {
-  console.log('render');
-  return (
-    <FadeSlideUp>
-      {visible &&
-        <div>
-          <Panel className='modal-panel'>
-            <PanelHeader>
-              Love or whip {data.item.nickname}
-            </PanelHeader>
-            <PanelBody>
-              <CurrentPoints>Current points: {data.item.points}</CurrentPoints>
-              <PointsButtons>
-                <GivePoints
-                  onClick={() => updatePoints(data.key, data.item.points + 10)}
-                >
-                  +10
-                </GivePoints>
-                <TakePoints
-                  onClick={() => updatePoints(data.key, data.item.points - 10)}
-                >
-                  -10
-                </TakePoints>
-              </PointsButtons>
-            </PanelBody>
-          </Panel>
+const PointsModal = ({ visible, hide, item, itemKey, updatePoints }) => (
+  <FadeSlideUp>
+    {visible &&
+      <div>
+        <Panel className='modal-panel'>
+          <PanelHeader>
+            <Title>Give love or whip</Title>
+            <Nickname>{item.nickname}</Nickname>
+          </PanelHeader>
+          <PanelBody>
+            <CurrentPoints>Current points: {item.points}</CurrentPoints>
+            <PointsButtons>
+              <GivePoints
+                onClick={() => updatePoints(itemKey, item.points + 10)}
+              >
+                +10
+              </GivePoints>
+              <TakePoints
+                onClick={() => updatePoints(itemKey, item.points - 10)}
+              >
+                -10
+              </TakePoints>
+            </PointsButtons>
+          </PanelBody>
+          <PanelFooter>
+            <CloseIcon onClick={hide} />
+          </PanelFooter>
+        </Panel>
 
-          <Backdrop onClick={hide} className='modal-backdrop' />
-        </div>
-      }
-    </FadeSlideUp>
-  );
-}
+        <Backdrop onClick={hide} className='modal-backdrop' />
+      </div>
+    }
+  </FadeSlideUp>
+);
 
 const Backdrop = styled.div`
   position: fixed;
@@ -67,10 +69,21 @@ const Panel = styled.div`
   z-index: 999;
 `;
 const PanelHeader = styled.div`
-  padding: 16px;
-  font-size: 24px;
-  color: ${props => props.theme.pink};
+  margin-bottom: 12px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+`;
+const Title = styled.div`
+  font-size: 24px;
+  margin-bottom: 8px;
+  font-weight: 100;
+  color: ${props => props.theme.pink};
+`;
+const Nickname = styled.div`
+  font-size: 32px;
+  font-weight: 700;
+  color: ${props => props.theme.pinkDark};
 `;
 const PanelBody = styled.div`
   display: flex;
@@ -79,8 +92,7 @@ const PanelBody = styled.div`
   flex-direction: column;
 `;
 const CurrentPoints = styled.div`
-  font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
   color: ${props => props.theme.pinkDark};
   margin-bottom: 32px;
 `;
@@ -111,6 +123,18 @@ const GivePoints = styled(ButtonBase)`
 `;
 const TakePoints = styled(ButtonBase)`
   background-color: #888;
+`;
+const PanelFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+
+  & > svg {
+    height: 32px;
+    width: 32px;
+    color: ${props => props.theme.pinkDark};
+  }
 `;
 
 

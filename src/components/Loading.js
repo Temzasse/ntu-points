@@ -11,7 +11,7 @@ const Loading = () => (
   <LoadingWrapper>
     <LoadingContent>
       <Smiley />
-      <span>Loading...</span>
+      <span>How far are we?</span>
     </LoadingContent>
   </LoadingWrapper>
 );
@@ -27,7 +27,7 @@ const LoadingWrapper = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255,76,208,0.6);
+  background: ${props => props.theme.pinkGradient};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,6 +36,8 @@ const LoadingContent = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   color: #fff;
   font-size: 24px;
 

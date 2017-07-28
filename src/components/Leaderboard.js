@@ -23,9 +23,7 @@ class Leaderboard extends Component {
   }
 
   selectItem = key => {
-    this.setState({
-      selected: { item: this.props.leaderboard[key], key }
-    });
+    this.setState({ selected: key });
   }
 
   resetSelected = () => {
@@ -35,8 +33,9 @@ class Leaderboard extends Component {
   render() {
     const { leaderboard } = this.props;
     const { selected } = this.state;
-
     const modalVisible = !!selected;
+    const item = selected ? leaderboard[selected] : null;
+
     const items = Object.entries(leaderboard).sort((a, b) => {
       if (a[1].points < b[1].points) return 1;
       if (a[1].points > b[1].points) return -1;
@@ -68,7 +67,8 @@ class Leaderboard extends Component {
 
         <PointsModal
           visible={modalVisible}
-          data={selected}
+          item={item}
+          itemKey={selected}
           hide={this.resetSelected}
           updatePoints={this.props.updatePoints}
         />
