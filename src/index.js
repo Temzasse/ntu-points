@@ -18,5 +18,7 @@ const config = {
 
 firebase.initializeApp(config);
 
+// localStorage.setItem('authStatus', 'false');
+
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();

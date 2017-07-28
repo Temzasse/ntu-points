@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Avatar from './Avatar';
@@ -9,32 +9,54 @@ const propTypes = {
   updatePoints: PropTypes.func.isRequired,
 };
 
-const PointsControls = ({ item, itemKey, updatePoints }) => (
-  <PointsControlsWrapper>
-    <PanelHeader>
-      <Avatar url={item.avatar} size='80px' />
-      <Nickname>{item.nickname}</Nickname>
-    </PanelHeader>
-    
-    <Title>Give love or whip</Title>
+class PointsControls extends Component {
+  state = {
+    expandPic: false,
+  }
 
-    <PanelBody>
-      <CurrentPoints>Current points: {item.points}</CurrentPoints>
-      <PointsButtons>
-        <GivePoints
-          onClick={() => updatePoints(itemKey, item.points + 10)}
-        >
-          <span>+10</span>
-        </GivePoints>
-        <TakePoints
-          onClick={() => updatePoints(itemKey, item.points - 10)}
-        >
-          <span>-10</span>
-        </TakePoints>
-      </PointsButtons>
-    </PanelBody>
-  </PointsControlsWrapper>
-);
+  toggleExpand = () => {
+    this.setState(prevState => ({
+      expandPic: !prevState.expandPic,
+    }));
+  }
+
+  render() {
+    const { item, itemKey, updatePoints } = this.props;
+    const { expandPic } = this.state;
+
+    return (
+      <PointsControlsWrapper>
+        <PanelHeader>
+          <AvatarExpandable
+            url={item.avatar}
+            size='80px'
+            expand={expandPic}
+            onClick={this.toggleExpand}
+          />
+          <Nickname>{item.nickname}</Nickname>
+        </PanelHeader>
+        
+        <Title>Give love or whip</Title>
+
+        <PanelBody>
+          <CurrentPoints>Current points: {item.points}</CurrentPoints>
+          <PointsButtons>
+            <GivePoints
+              onClick={() => updatePoints(itemKey, item.points + 10)}
+            >
+              <span>+10</span>
+            </GivePoints>
+            <TakePoints
+              onClick={() => updatePoints(itemKey, item.points - 10)}
+            >
+              <span>-10</span>
+            </TakePoints>
+          </PointsButtons>
+        </PanelBody>
+      </PointsControlsWrapper>
+    );
+  }
+}
 
 const PointsControlsWrapper = styled.div`
   display: flex;
@@ -69,7 +91,7 @@ const CurrentPoints = styled.div`
   font-size: 18px;
   font-weight: 200;
   color: ${props => props.theme.pinkDark};
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 `;
 const PointsButtons = styled.div`
   display: flex;
@@ -80,10 +102,10 @@ const ButtonBase = styled.button`
   border: none;
   display: block;
   text-align: center;
-  height: 100px;
-  width: 200px;
+  height: 80px;
+  width: 180px;
   color: #fff;
-  font-size: 48px;
+  font-size: 40px;
   font-weight: 200;
   transition: opacity 0.4 ease;
   outline: none;
@@ -94,10 +116,16 @@ const ButtonBase = styled.button`
 `;
 const GivePoints = styled(ButtonBase)`
   background-color: ${props => props.theme.pink};
-  margin-bottom: 32px; 
+  margin-bottom: 24px; 
 `;
 const TakePoints = styled(ButtonBase)`
   background-color: #888;
+`;
+const AvatarExpandable = styled(Avatar)`
+  transition: all 0.4s ease;
+  ${props => props.expand &&
+    'transform: translateX(calc(50vw - 60px)) translateY(200px) scale(4);'
+  }
 `;
 
 PointsControls.propTypes = propTypes;

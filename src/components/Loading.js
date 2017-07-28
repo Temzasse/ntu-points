@@ -50,7 +50,7 @@ const LoadingContent = styled.div`
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 24px;
+  font-size: 18px;
 
   & > svg {
     width: 80px;

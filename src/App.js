@@ -6,6 +6,7 @@ import theme from './theme';
 // Components
 import Loading from './components/Loading';
 import Leaderboard from './components/Leaderboard';
+import PasswordPrompt from './components/PasswordPrompt';
 
 class App extends Component {
   constructor(props) {
@@ -13,10 +14,25 @@ class App extends Component {
     this.db = firebase.database();
     this.state = {
       leaderboard: null,
+      isAuthenticated: false,
     };
   }
 
   componentDidMount() {
+    const authStatus = localStorage.getItem('authStatus');
+    if (authStatus === 'true') {
+      this.setState({ isAuthenticated: true });
+      this.loadData();
+    }
+  }
+
+  authOk = () => {
+    localStorage.setItem('authStatus', 'true');
+    this.loadData();
+    this.setState({ isAuthenticated: true });
+  }
+
+  loadData = () => {
     // Get initial leaderboard
     this.db.ref().child('leaderboard').on('value', snapshot => {
       const leaderboard = snapshot.val();
@@ -29,20 +45,23 @@ class App extends Component {
   }
 
   render() {
-    const { leaderboard } = this.state;
+    const { leaderboard, isAuthenticated } = this.state;
 
     return (
       <ThemeProvider theme={theme}>
         <AppWrapper>
-          <Content>
-            {leaderboard
-              ? <Leaderboard
-                  leaderboard={leaderboard}
-                  updatePoints={this.updatePoints}
-                />
-              : <Loading />
-            }
-          </Content>
+          {isAuthenticated ?
+            <Content>
+              {leaderboard
+                ? <Leaderboard
+                    leaderboard={leaderboard}
+                    updatePoints={this.updatePoints}
+                  />
+                : <Loading />
+              }
+            </Content> :
+            <PasswordPrompt onPasswordOk={this.authOk} />
+          }
         </AppWrapper>
       </ThemeProvider>
     );
