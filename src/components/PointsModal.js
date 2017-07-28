@@ -77,7 +77,6 @@ const PanelHeader = styled.div`
 const Title = styled.div`
   font-size: 24px;
   margin-bottom: 8px;
-  font-weight: 100;
   color: ${props => props.theme.pink};
 `;
 const Nickname = styled.div`
@@ -92,7 +91,8 @@ const PanelBody = styled.div`
   flex-direction: column;
 `;
 const CurrentPoints = styled.div`
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 200;
   color: ${props => props.theme.pinkDark};
   margin-bottom: 32px;
 `;
@@ -106,10 +106,12 @@ const ButtonBase = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   height: 100px;
   width: 200px;
   color: #fff;
-  font-size: 40px;
+  font-size: 48px;
+  font-weight: 200;
   transition: opacity 0.4 ease;
   outline: none;
 
@@ -133,7 +135,7 @@ const PanelFooter = styled.div`
   & > svg {
     height: 32px;
     width: 32px;
-    color: ${props => props.theme.pinkDark};
+    color: ${props => props.theme.pinkDarker};
   }
 `;
 
