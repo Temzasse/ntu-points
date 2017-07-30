@@ -46,13 +46,17 @@ class App extends Component {
   loadData = () => {
     // Get initial leaderboard
     this.db.ref().child('leaderboard').on('value', snapshot => {
-      const leaderboard = snapshot.val();
-      this.setState({ leaderboard });
+      this.setState({ leaderboard: snapshot.val() });
     });
   }
 
-  updatePoints = (name, points) => {
-    this.db.ref(`leaderboard/${name}/points`).set(points);
+  updatePoints = (key, points) => {
+    this.db.ref(`leaderboard/${key}/points`).set(points);
+  }
+
+  addHistoryEvent = (key, event) => {
+    const newEventRef = this.db.ref(`leaderboard/${key}/history`).push();
+    newEventRef.set(event);
   }
 
   render() {
@@ -69,6 +73,7 @@ class App extends Component {
               <Leaderboard
                 leaderboard={leaderboard}
                 updatePoints={this.updatePoints}
+                addHistoryEvent={this.addHistoryEvent}
               /> 
             }
             {!isAuthenticated && !loading &&

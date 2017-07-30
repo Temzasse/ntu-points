@@ -3,42 +3,50 @@
     "alexis": {
       "nickname": "Pastor",
       "points": 55,
-      "avatar": ""
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/ntu-points.appspot.com/o/avatars%2Falexis_avatar.jpeg?alt=media&token=da5c0304-dc80-4519-b4b5-c77a332c601b",
+      "history": []
     },
     "igna": {
       "nickname": "El Patron",
       "points": 5,
-      "avatar": ""
+      "avatar": "",
+      "history": []
     },
     "kasper": {
       "nickname": "Kaspargus",
       "points": 100,
-      "avatar": ""
+      "avatar": "",
+      "history": []
     },
     "milan": {
       "nickname": "Econ Rice",
       "points": 0,
-      "avatar": ""
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/ntu-points.appspot.com/o/avatars%2Fmilan_avatar.jpg?alt=media&token=bab390c3-feec-4be5-b3d9-af8fd843d2d2",
+      "history": []
     },
     "ondra": {
       "nickname": "Offensive Ondra",
       "points": 15,
-      "avatar": ""
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/ntu-points.appspot.com/o/avatars%2Fondra_avatar.jpg?alt=media&token=580a0e6c-3300-442b-a201-4dba98cd1522",
+      "history": []
     },
     "teemu": {
       "nickname": "Winter Soldier",
       "points": -50,
-      "avatar": ""
+      "avatar": "https://firebasestorage.googleapis.com/v0/b/ntu-points.appspot.com/o/avatars%2Fteemu_avatar.JPG?alt=media&token=f4f7a6ae-1a55-4569-9369-6bb35df24c6e",
+      "history": []
     },
     "jesper": {
       "nickname": "Granpa",
       "points": 10,
-      "avatar": ""
+      "avatar": "",
+      "history": []
     },
     "stepanka": {
       "nickname": "How far are we?",
       "points": 0,
-      "avatar": ""
+      "avatar": "",
+      "history": []
     }
   }
 }

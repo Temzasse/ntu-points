@@ -9,6 +9,7 @@ import { capitalize } from '../utils';
 const propTypes = {
   leaderboard: PropTypes.object.isRequired,
   updatePoints: PropTypes.func.isRequired,
+  addHistoryEvent: PropTypes.func.isRequired,
 };
 
 const getName = key => key
@@ -29,7 +30,7 @@ class Leaderboard extends Component {
   }
 
   render() {
-    const { leaderboard } = this.props;
+    const { leaderboard, history } = this.props;
     const { selected } = this.state;
     const modalVisible = !!selected;
     const item = selected ? leaderboard[selected] : null;
@@ -69,6 +70,7 @@ class Leaderboard extends Component {
           itemKey={selected}
           hide={this.resetSelected}
           updatePoints={this.props.updatePoints}
+          addHistoryEvent={this.props.addHistoryEvent}
         />
 
       </LeaderboardWrapper>
