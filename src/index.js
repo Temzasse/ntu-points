@@ -18,7 +18,7 @@ const config = {
 
 firebase.initializeApp(config);
 
-// localStorage.setItem('authStatus', 'false');
+//localStorage.removeItem('ntu-points-credentials');
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();

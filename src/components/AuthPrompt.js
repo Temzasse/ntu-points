@@ -1,51 +1,70 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
+import * as firebase from 'firebase';
 
 const propTypes = {
   onPasswordOk: PropTypes.any,
 };
 
-class PasswordPrompt extends Component {
+class AuthPrompt extends Component {
   state = {
     password: '',
+    email: '',
     shallPass: null,
   }
 
-  checkPassword = (event) => {
+  checkCredentials = (event) => {
     event.preventDefault();
-    const { password } = this.state;
-
-    if (password === 'mrwong69') {
-      this.props.onPasswordOk();
-    } else {
-      this.setState({ shallPass: false });
-    }
+    const { email, password } = this.state;
+    
+    firebase.auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => this.props.onPasswordOk({ email, password }))
+      .catch((error) => {
+        console.log('Auth error:', error);
+        this.setState({ shallPass: false });
+      });
   }
 
   handleChange = ({ target }) => {
-    this.setState({ password: target.value, shallPass: null });
+    this.setState({
+      [target.name]: target.value,
+      shallPass: null,
+    });
   }
 
   render() {
-    const { password, shallPass } = this.state;
+    const { email, password, shallPass } = this.state;
 
     return (
-      <PasswordPromptWrapper>
-        <Form onSubmit={this.checkPassword} shake={shallPass === false}>
+      <AuthPromptWrapper>
+        <Form onSubmit={this.checkCredentials} shake={shallPass === false}>
           <Label>
-            You shall not pass
-            <PassInput
-              placeholder='Give super secret password'
+            {shallPass
+              ? <span>Identify yourself!</span>
+              : <span>You shall not pass</span>
+            }
+            <Input
+              value={email}
+              onChange={this.handleChange}
+              placeholder='Email here, now!'
+              type='email'
+              name='email'
+            />
+            <Input
               value={password}
               onChange={this.handleChange}
+              placeholder='Give super secret password...'
+              type='password'
+              name='password'
             />
           </Label>
           <SubmitButton type='submit'>
             Let's go!
           </SubmitButton>
         </Form>
-      </PasswordPromptWrapper>
+      </AuthPromptWrapper>
     );
   }
 }
@@ -60,12 +79,13 @@ const shakeAnim = keyframes`
   100% { transform: rotate(0deg); }
 `;
 
-const PasswordPromptWrapper = styled.div`
+const AuthPromptWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: fixed;
+  position: absolute;
+  z-index: 99;
   top: 0;
   right: 0;
   left: 0;
@@ -85,8 +105,8 @@ const Form = styled.form`
 const Label = styled.label`
   font-size: 24px;
 `;
-const PassInput = styled.input`
-  margin: 24px 0px;
+const Input = styled.input`
+  margin-top: 16px;
   width: 100%;
   padding: 12px 16px;
   font-size: 16px;
@@ -97,6 +117,7 @@ const PassInput = styled.input`
   color: ${props => props.theme.pinkDark};
 `;
 const SubmitButton = styled.button`
+  margin-top: 16px;
   width: 100%;
   padding: 16px 24px;
   color: #fff;
@@ -113,6 +134,6 @@ const SubmitButton = styled.button`
   }
 `;
 
-PasswordPrompt.propTypes = propTypes;
+AuthPrompt.propTypes = propTypes;
 
-export default PasswordPrompt;
+export default AuthPrompt;

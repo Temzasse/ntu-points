@@ -13,10 +13,10 @@ import ItemEdit from './ItemEdit';
 const propTypes = {
   visible: PropTypes.bool.isRequired,
   hide: PropTypes.func.isRequired,
-  itemKey: PropTypes.string.isRequired,
+  itemKey: PropTypes.string,
 };
 
-class PointsModal extends Component {
+class Modal extends Component {
   state = {
     activePanel: 'points',
   }
@@ -126,6 +126,6 @@ const GoBack = styled(BackIcon)`
 `;
 
 
-PointsModal.propTypes = propTypes;
+Modal.propTypes = propTypes;
 
-export default PointsModal;
+export default Modal;

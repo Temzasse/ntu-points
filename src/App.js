@@ -6,7 +6,7 @@ import theme from './theme';
 // Components
 import Loading from './components/Loading';
 import Leaderboard from './components/Leaderboard';
-import PasswordPrompt from './components/PasswordPrompt';
+import AuthPrompt from './components/AuthPrompt';
 
 class App extends Component {
   constructor(props) {
@@ -15,21 +15,32 @@ class App extends Component {
     this.state = {
       leaderboard: null,
       isAuthenticated: false,
+      loading: true,
     };
   }
 
   componentDidMount() {
-    const authStatus = localStorage.getItem('authStatus');
-    if (authStatus === 'true') {
-      this.setState({ isAuthenticated: true });
-      this.loadData();
+    try {
+      const authStr = localStorage.getItem('ntu-points-credentials');
+      const { email, password } = JSON.parse(authStr);
+
+      firebase.auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(() => this.init())
+        .catch(() => this.setState({ loading: false }));
+    } catch (error) {
+      this.setState({ loading: false });
     }
   }
 
-  authOk = () => {
-    localStorage.setItem('authStatus', 'true');
+  init = () => {
+    this.setState({ isAuthenticated: true, loading: false });
     this.loadData();
-    this.setState({ isAuthenticated: true });
+  }
+
+  authOk = credentials => {
+    localStorage.setItem('ntu-points-credentials', JSON.stringify(credentials));
+    this.init();
   }
 
   loadData = () => {
@@ -45,23 +56,25 @@ class App extends Component {
   }
 
   render() {
-    const { leaderboard, isAuthenticated } = this.state;
+    const { leaderboard, isAuthenticated, loading } = this.state;
 
     return (
       <ThemeProvider theme={theme}>
         <AppWrapper>
-          {isAuthenticated ?
-            <Content>
-              {leaderboard
-                ? <Leaderboard
-                    leaderboard={leaderboard}
-                    updatePoints={this.updatePoints}
-                  />
-                : <Loading />
-              }
-            </Content> :
-            <PasswordPrompt onPasswordOk={this.authOk} />
-          }
+          <Content>
+            {loading &&
+              <Loading />  
+            }
+            {isAuthenticated && leaderboard && !loading &&
+              <Leaderboard
+                leaderboard={leaderboard}
+                updatePoints={this.updatePoints}
+              /> 
+            }
+            {!isAuthenticated && !loading &&
+              <AuthPrompt onPasswordOk={this.authOk} />
+            }
+          </Content>
         </AppWrapper>
       </ThemeProvider>
     );
