@@ -4,19 +4,42 @@
       "nickname": "Pastor",
       "points": 55,
       "avatar": "https://firebasestorage.googleapis.com/v0/b/ntu-points.appspot.com/o/avatars%2Falexis_avatar.jpeg?alt=media&token=da5c0304-dc80-4519-b4b5-c77a332c601b",
-      "history": []
+      "history": [
+        {
+          "points": 50,
+          "reason": "For that one time he banged you know who"
+        },
+        {
+          "points": 5,
+          "reason": "Takes 5 of ignas points for superior screenshotting"
+        }
+      ]
     },
     "igna": {
       "nickname": "El Patron",
       "points": 5,
       "avatar": "",
-      "history": []
+      "history": [
+        {
+          "points": 10,
+          "reason": "For being hot"
+        },
+        {
+          "points": -5,
+          "reason": "Shitty screenshotting"
+        }
+      ]
     },
     "kasper": {
       "nickname": "Kaspargus",
       "points": 100,
       "avatar": "",
-      "history": []
+      "history": [
+        {
+          "points": 100,
+          "reason": "For having the time of his life in Hongkong"
+        }
+      ]
     },
     "milan": {
       "nickname": "Econ Rice",
@@ -28,19 +51,50 @@
       "nickname": "Offensive Ondra",
       "points": 15,
       "avatar": "https://firebasestorage.googleapis.com/v0/b/ntu-points.appspot.com/o/avatars%2Fondra_avatar.jpg?alt=media&token=580a0e6c-3300-442b-a201-4dba98cd1522",
-      "history": []
+      "history": [
+        {
+          "points": -5,
+          "reason": "For being a former German colony"
+        },
+        {
+          "points": 10,
+          "reason": "For his heroic actions of taking the man masseur"
+        },
+        {
+          "points": 10,
+          "reason": "For quoting a smart man and also for being an alcoholic"
+        }
+      ]
     },
     "teemu": {
       "nickname": "Winter Soldier",
       "points": -50,
       "avatar": "https://firebasestorage.googleapis.com/v0/b/ntu-points.appspot.com/o/avatars%2Fteemu_avatar.JPG?alt=media&token=f4f7a6ae-1a55-4569-9369-6bb35df24c6e",
-      "history": []
+      "history": [
+        {
+          "points": -50,
+          "reason": "Lost the race"
+        },
+        {
+          "points": 10,
+          "reason": "Won the cottage olympics"
+        },
+        {
+          "points": -10,
+          "reason": "For teemu for insulting the Lord's water"
+        }
+      ]
     },
     "jesper": {
       "nickname": "Granpa",
       "points": 10,
       "avatar": "",
-      "history": []
+      "history": [
+        {
+          "points": 10,
+          "reason": "For that rooftop chick in Vietnam"
+        }
+      ]
     },
     "stepanka": {
       "nickname": "How far are we?",

@@ -30,23 +30,28 @@ const PointsHistoryWrapper = styled.div`
   flex-direction: column;
 `;
 const HistoryEvents = styled.ul`
-  padding: 16px;
+  padding: 0px;
   margin: 0px;
   list-style: none;
 `;
 const Event = styled.li`
-  padding: 8px;
-  margin-bottom: 8px;
-  font-size: 14px;
+  padding: 0px 8px;
+  margin-bottom: 16px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 `;
 const Points = styled.div`
   margin-right: 16px;
   font-weight: 700;
+  font-size: 18px;
+  width: 50px;
+  text-align: center;
+  color: ${props => props.theme.pinkDark};
 `;
 const Reason = styled.div`
   flex: 1;
+  font-size: 14px;
+  color: ${props => props.theme.pinkDarkest};
 `;
 
 PointsHistory.propTypes = propTypes;

@@ -175,6 +175,8 @@ const Slide = styled.div`
   width: 100vw;
   flex: none;
   padding: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 const GoEdit = styled(EditIcon)`
   position: absolute;
@@ -198,6 +200,7 @@ const GoBack = styled(BackIcon)`
 `;
 const AvatarExpandable = styled(Avatar)`
   transition: all 0.4s ease;
+  z-index: 999999;
   ${props => props.expand &&
     'transform: translateX(calc(50vw - 60px)) translateY(200px) scale(4);'
   }

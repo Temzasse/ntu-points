@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import ResetIcon from 'react-icons/lib/md/refresh';
 
 const propTypes = {
   item: PropTypes.object,
@@ -34,8 +35,12 @@ class PointsControls extends Component {
     if (reason && total !== null) {
       this.props.updatePoints(itemKey, item.points + total);
       this.props.addHistoryEvent(itemKey, { reason, points: total });
-      this.setState({ reason: '', total: null });
+      this.reset();
     }
+  }
+
+  reset = () => {
+    this.setState({ reason: '', total: null });
   }
 
   render() {
@@ -44,12 +49,13 @@ class PointsControls extends Component {
 
     return (
       <PointsControlsWrapper>
-        <Title>Give love or whip</Title>
+         <Title>Give love or whip</Title> 
         <PanelBody>
           <PointsButtons>
             <TakePoints onClick={() => this.updateTotal(-10)}>
               <span>-10</span>
             </TakePoints>
+            <ResetIcon onClick={this.reset} />
             <GivePoints onClick={() => this.updateTotal(10)} >
               <span>+10</span>
             </GivePoints>
@@ -58,12 +64,16 @@ class PointsControls extends Component {
           <ReasonTextField
             value={reason}
             onChange={this.handleReasonChange}
-            row={5}
+            rows={2}
+            placeholder='What is the reason for this action?'
           />
 
           <ConfirmSection>
             <Total>{total}</Total>
-            <ConfirmButton onClick={this.confirm}>
+            <ConfirmButton
+              onClick={this.confirm}
+              disabled={!reason || total === null}
+            >
               Do it!
             </ConfirmButton>
           </ConfirmSection>
@@ -85,29 +95,39 @@ const PanelBody = styled.div`
 `;
 const Title = styled.div`
   font-size: 24px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   text-align: center;
   color: ${props => props.theme.pink};
 `;
 const PointsButtons = styled.div`
   display: flex;
+  align-items: center;
+  width: 100%;
+
+  & > svg {
+    margin: 0px 12px;
+    width: 24px;
+    height: 24px;
+    color: ${props => props.theme.pinkDark};
+    transition: opacity 0.3s ease;
+
+    &:active {
+      opacity: 0.7;
+    }
+  }
 `;
 const ButtonBase = styled.button`
-  border-radius: 80px;
+  border-radius: 30px;
   border: none;
   display: block;
   text-align: center;
-  height: 80px;
-  width: 140px;
+  height: 60px;
+  width: calc(50% - 24px);
   color: #fff;
-  font-size: 40px;
+  font-size: 24px;
   font-weight: 200;
-  transition: opacity 0.4 ease;
+  transition: opacity 0.3s ease;
   outline: none;
-
-  &:first-child {
-    margin-right: 32px;
-  }
 
   &:active {
     opacity: 0.7;
@@ -115,7 +135,6 @@ const ButtonBase = styled.button`
 `;
 const GivePoints = styled(ButtonBase)`
   background-color: ${props => props.theme.pink};
-  margin-bottom: 24px; 
 `;
 const TakePoints = styled(ButtonBase)`
   background-color: #888;
@@ -126,7 +145,7 @@ const ReasonTextField = styled.textarea`
   width: 100%;
   padding: 16px;
   flex: 1;
-  margin-bottom: 32px;
+  margin: 24px 0px;
   font-size: 16px;
   outline: none;
   color: ${props => props.theme.pink};
@@ -134,28 +153,29 @@ const ReasonTextField = styled.textarea`
 const ConfirmSection = styled.div`
   display: flex;
   align-items: center;
-  background-color: ${props => props.theme.pinkDark};
+  background-color: ${props => props.theme.pink};
   color: #fff;
   width: 100%;
   border-radius: 6px;
 `;
 const Total = styled.div`
-  font-size: 32px;
+  font-size: 24px;
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 const ConfirmButton = styled.div`
-  padding: 0px 32px;
-  height: 80px;
+  padding: 0px 24px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${props => props.theme.pinkDarker};
+  background-color: ${props => props.theme.pinkDark};
   font-size: 24px;
   border-bottom-right-radius: 6px;
   border-top-right-radius: 6px;
+  ${props => props.disabled && 'opacity: 0.4;'}
 `;
 
 PointsControls.propTypes = propTypes;
