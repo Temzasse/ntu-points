@@ -41,21 +41,21 @@ class AuthPrompt extends Component {
       <AuthPromptWrapper>
         <Form onSubmit={this.checkCredentials} shake={shallPass === false}>
           <Label>
-            {shallPass
-              ? <span>Identify yourself!</span>
-              : <span>You shall not pass</span>
-            }
+            <span>Give email, now!</span>
             <Input
               value={email}
               onChange={this.handleChange}
-              placeholder='Email here, now!'
+              placeholder='Like bae@forevah.love'
               type='email'
               name='email'
             />
+          </Label>
+          <Label>
+            <span>Shit what was the password...</span>
             <Input
               value={password}
               onChange={this.handleChange}
-              placeholder='Give super secret password...'
+              placeholder='Try 123456'
               type='password'
               name='password'
             />
@@ -94,19 +94,20 @@ const AuthPromptWrapper = styled.div`
 `;
 const Form = styled.form`
   background-color: #fff;
-  padding: 32px;
-  width: 80%;
+  padding: 16px;
+  width: 85%;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
-  box-shadow: 2px 4px 24px rgba(0,0,0,0.4);
+  box-shadow: 0px 4px 24px rgba(0,0,0,0.3);
   animation: ${props => props.shake ? shakeAnim : 'none'} 0.7s;
 `;
 const Label = styled.label`
-  font-size: 24px;
+  font-size: 14px;
+  color: ${props => props.theme.pinkDarker};
 `;
 const Input = styled.input`
-  margin-top: 16px;
+  margin: 8px 0px 24px 0px;
   width: 100%;
   padding: 12px 16px;
   font-size: 16px;
@@ -117,7 +118,6 @@ const Input = styled.input`
   color: ${props => props.theme.pinkDark};
 `;
 const SubmitButton = styled.button`
-  margin-top: 16px;
   width: 100%;
   padding: 16px 24px;
   color: #fff;
@@ -127,10 +127,10 @@ const SubmitButton = styled.button`
   border-radius: 6px;
   border: none;
   outline: none;
-  background-color: ${props => props.theme.pinkDark};
+  background-color: ${props => props.theme.pink};
 
   &:hover, &:active {
-    background-color: ${props => props.theme.pinkDarker};
+    background-color: ${props => props.theme.pinkDark};
   }
 `;
 
