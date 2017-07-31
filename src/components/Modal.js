@@ -122,7 +122,7 @@ const Panel = styled.div`
   left: 0;
   display: flex;
   flex-direction: column;
-  height: 85vh;
+  height: 100vh;
   background-color: #fff;
   box-shadow: 0px 0px 18px rgba(0,0,0,0.7);
   z-index: 999;

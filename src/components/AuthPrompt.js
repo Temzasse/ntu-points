@@ -19,7 +19,7 @@ class AuthPrompt extends Component {
     const { email, password } = this.state;
     
     firebase.auth()
-      .signInWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email.trim(), password.trim())
       .then(() => this.props.onPasswordOk({ email, password }))
       .catch((error) => {
         console.log('Auth error:', error);
