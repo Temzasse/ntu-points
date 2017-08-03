@@ -6,13 +6,16 @@ const propTypes = {
   items: PropTypes.array.isRequired,
 };
 
-const RecentList = ({ items }) => (
+const RecentList = ({ items, leaderboard }) => (
   <RecentListWrapper>
     <strong>Recent events</strong>
     <Recent>
-      {items.map(({ points, reason }) =>
+      {items.map(({ points, reason, user }) =>
         <RecentItem>
-          <Points>{points}</Points>
+          <Upper>
+            <Points>{points}</Points>
+            <User>{leaderboard[user].nickname}</User>
+          </Upper>
           <Reason>{reason}</Reason>
         </RecentItem>
       )}
@@ -39,27 +42,34 @@ const Recent = styled.div`
 `;
 const RecentItem = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   color: #fff;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid ${props => props.theme.pink};
 
   &:last-child {
     margin-bottom: 0px;
+    border-bottom: none;
   }
 `;
-const Points = styled.div`
-  height: 38px;
-  width: 38px;
-  font-size: 11px;
-  font-weight: 700;
-  border-radius: 50%;
+const Upper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-right: 12px;
-  background-color: ${props => props.theme.pinkLighter};
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 12px;
+  margin-bottom: 4px;
+  background-color: ${props => props.theme.pink};
   color: #fff;
+`;
+const User = styled.div`
+  flex: none;
+`;
+const Points = styled.div`
+  margin-right: 12px;
 `;
 const Reason = styled.div`
   flex: 1;

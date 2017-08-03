@@ -63,7 +63,7 @@ class Leaderboard extends Component {
           <Title>Leaderboard</Title>
         </Header>
 
-        <RecentList items={recent} />
+        <RecentList items={recent} leaderboard={leaderboard} />
 
         <LeaderboardList>
           {items.map(([key, { nickname, points, avatar }], index) =>

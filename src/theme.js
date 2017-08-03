@@ -16,7 +16,7 @@ const theme = {
     ${pinkBase} 100%
   )`,
   pinkGradientSideways: `linear-gradient(
-    45deg,
+    -45deg,
     ${pinkBase} 0%,
     ${lighten(0.2, pinkBase)} 100%
   )`,
