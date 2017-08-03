@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ListIcon from 'react-icons/lib/md/whatshot';
+import { capitalize } from '../utils';
 import Modal from './Modal';
 import Avatar from './Avatar';
-import { capitalize } from '../utils';
+import RecentList from './RecentList';
 
 const propTypes = {
   leaderboard: PropTypes.object.isRequired,
+  recent: PropTypes.array.isRequired,
   updatePoints: PropTypes.func.isRequired,
   addHistoryEvent: PropTypes.func.isRequired,
 };
@@ -30,7 +32,7 @@ class Leaderboard extends Component {
       .orderByChild('user')
       .equalTo(key)
       .on('value', snapshot => {
-        const data = snapshot.val();
+        const data = snapshot.val() || {};
         const historyOfSelected = Object.values(data).sort((a, b) => {
           return a.timestamp - b.timestamp;
         });
@@ -43,7 +45,7 @@ class Leaderboard extends Component {
   }
 
   render() {
-    const { leaderboard } = this.props;
+    const { leaderboard, recent } = this.props;
     const { selected, historyOfSelected } = this.state;
     const modalVisible = !!selected;
     const item = selected ? leaderboard[selected] : null;
@@ -55,13 +57,15 @@ class Leaderboard extends Component {
     });
 
     return (
-      <LeaderboardWrapper>
+      <LeaderboardWrapper noScroll={modalVisible}>
         <Header>
           <ListIcon />
           <Title>Leaderboard</Title>
         </Header>
 
-        <LeaderboardList noScroll={modalVisible}>
+        <RecentList items={recent} />
+
+        <LeaderboardList>
           {items.map(([key, { nickname, points, avatar }], index) =>
             <LeaderboardItem
               onClick={() => this.selectItem(key)}
@@ -95,6 +99,8 @@ class Leaderboard extends Component {
 const LeaderboardWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  overflow: ${props => props.noScroll ? 'hidden' : 'auto'};
+  height: 100vh;
 `;
 const Header = styled.div`
   height: 60px;
@@ -103,6 +109,7 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: none;
 
   & > svg {
     height: 32px;
@@ -120,8 +127,8 @@ const LeaderboardList = styled.ul`
   padding: 16px;
   margin: 0px;
   list-style: none;
-  height: calc(100vh - 60px);
-  overflow: ${props => props.noScroll ? 'hidden' : 'auto'};
+  min-height: calc(100vh - 60px);
+  flex: none;
 `;
 const LeaderboardItem = styled.li`
   padding: 8px 16px;

@@ -54,8 +54,10 @@ class App extends Component {
       .orderByChild('timestamp')
       .limitToLast(3)
       .on('value', snapshot => {
-        const recent = [];
-        snapshot.forEach(snap => recent.push(snap.val()));
+        const data = snapshot.val() || {};
+        const recent = Object.values(data).sort((a, b) => {
+          return a.timestamp - b.timestamp;
+        });
         this.setState({ recent });
       });
   }
@@ -65,7 +67,7 @@ class App extends Component {
   }
 
   addHistoryEvent = (key, event) => {
-    const newEventRef = this.db.ref(`leaderboard/${key}/history`).push();
+    const newEventRef = this.db.ref(`history`).push();
     newEventRef.set({
       ...event,
       timestamp: Date.now(),
@@ -74,7 +76,6 @@ class App extends Component {
 
   render() {
     const { leaderboard, isAuthenticated, loading, recent } = this.state;
-    console.debug('[recent]', recent);
 
     return (
       <ThemeProvider theme={theme}>
@@ -88,6 +89,7 @@ class App extends Component {
                 leaderboard={leaderboard}
                 updatePoints={this.updatePoints}
                 addHistoryEvent={this.addHistoryEvent}
+                recent={recent}
                 db={this.db}
               /> 
             }
