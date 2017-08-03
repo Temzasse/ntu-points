@@ -19,19 +19,32 @@ const getName = key => key
 class Leaderboard extends Component {
   state = {
     selected: null,
+    historyOfSelected: [],
   }
 
   selectItem = key => {
     this.setState({ selected: key });
+
+    // Get user history
+    this.props.db.ref('history')
+      .orderByChild('user')
+      .equalTo(key)
+      .on('value', snapshot => {
+        const data = snapshot.val();
+        const historyOfSelected = Object.values(data).sort((a, b) => {
+          return a.timestamp - b.timestamp;
+        });
+        this.setState({ historyOfSelected });
+      });
   }
 
   resetSelected = () => {
-    this.setState({ selected: null });
+    this.setState({ selected: null, historyOfSelected: [] });
   }
 
   render() {
-    const { leaderboard, history } = this.props;
-    const { selected } = this.state;
+    const { leaderboard } = this.props;
+    const { selected, historyOfSelected } = this.state;
     const modalVisible = !!selected;
     const item = selected ? leaderboard[selected] : null;
 
@@ -67,6 +80,7 @@ class Leaderboard extends Component {
         <Modal
           visible={modalVisible}
           item={item}
+          itemHistory={historyOfSelected}
           itemKey={selected}
           hide={this.resetSelected}
           updatePoints={this.props.updatePoints}

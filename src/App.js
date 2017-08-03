@@ -16,6 +16,7 @@ class App extends Component {
       leaderboard: null,
       isAuthenticated: false,
       loading: true,
+      recent: [],
     };
   }
 
@@ -45,9 +46,18 @@ class App extends Component {
 
   loadData = () => {
     // Get initial leaderboard
-    this.db.ref().child('leaderboard').on('value', snapshot => {
+    this.db.ref('leaderboard').on('value', snapshot => {
       this.setState({ leaderboard: snapshot.val() });
     });
+    
+    this.db.ref('history')
+      .orderByChild('timestamp')
+      .limitToLast(3)
+      .on('value', snapshot => {
+        const recent = [];
+        snapshot.forEach(snap => recent.push(snap.val()));
+        this.setState({ recent });
+      });
   }
 
   updatePoints = (key, points) => {
@@ -56,11 +66,15 @@ class App extends Component {
 
   addHistoryEvent = (key, event) => {
     const newEventRef = this.db.ref(`leaderboard/${key}/history`).push();
-    newEventRef.set(event);
+    newEventRef.set({
+      ...event,
+      timestamp: Date.now(),
+    });
   }
 
   render() {
-    const { leaderboard, isAuthenticated, loading } = this.state;
+    const { leaderboard, isAuthenticated, loading, recent } = this.state;
+    console.debug('[recent]', recent);
 
     return (
       <ThemeProvider theme={theme}>
@@ -74,6 +88,7 @@ class App extends Component {
                 leaderboard={leaderboard}
                 updatePoints={this.updatePoints}
                 addHistoryEvent={this.addHistoryEvent}
+                db={this.db}
               /> 
             }
             {!isAuthenticated && !loading &&

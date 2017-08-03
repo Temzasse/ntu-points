@@ -43,7 +43,7 @@ class Modal extends Component {
   }
 
   render() {
-    const { visible, hide, item } = this.props;
+    const { visible, hide, item, itemHistory } = this.props;
     const { activePanel, expandPic } = this.state;
 
     return (
@@ -70,7 +70,7 @@ class Modal extends Component {
                 </Slide>
 
                 <Slide>
-                  <PointsHistory {...this.props} />
+                  <PointsHistory {...this.props} history={itemHistory} />
                 </Slide>
 
                 <Slide>
@@ -122,7 +122,7 @@ const Panel = styled.div`
   left: 0;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 90vh;
   background-color: #fff;
   box-shadow: 0px 0px 18px rgba(0,0,0,0.7);
   z-index: 999;

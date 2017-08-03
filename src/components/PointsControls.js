@@ -44,7 +44,6 @@ class PointsControls extends Component {
   }
 
   render() {
-    const { item } = this.props;
     const { reason, total } = this.state;
 
     return (

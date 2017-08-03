@@ -6,24 +6,18 @@ const propTypes = {
   item: PropTypes.object.isRequired,
 };
 
-const PointsHistory = ({ item }) => {
-  const itemHistory = item.history
-    ? Object.entries(item.history)
-    : [];
-
-  return (
-    <PointsHistoryWrapper>
-      <HistoryEvents>
-        {itemHistory.map(([key, historyEvent]) =>
-          <Event key={key}>
-            <Points>{historyEvent.points}</Points>
-            <Reason>{historyEvent.reason}</Reason>
-          </Event>
-        )}
-      </HistoryEvents>
-    </PointsHistoryWrapper>
-  );
-}
+const PointsHistory = ({ item, history }) => (
+  <PointsHistoryWrapper>
+    <HistoryEvents>
+      {history.map(({ timestamp, points, reason }) =>
+        <Event key={timestamp}>
+          <Points>{points}</Points>
+          <Reason>{reason}</Reason>
+        </Event>
+      )}
+    </HistoryEvents>
+  </PointsHistoryWrapper>
+);
 
 const PointsHistoryWrapper = styled.div`
   display: flex;
