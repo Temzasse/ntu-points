@@ -34,7 +34,7 @@ class Leaderboard extends Component {
       .on('value', snapshot => {
         const data = snapshot.val() || {};
         const historyOfSelected = Object.values(data).sort((a, b) => {
-          return a.timestamp - b.timestamp;
+          return b.timestamp - a.timestamp;
         });
         this.setState({ historyOfSelected });
       });

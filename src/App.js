@@ -56,7 +56,7 @@ class App extends Component {
       .on('value', snapshot => {
         const data = snapshot.val() || {};
         const recent = Object.values(data).sort((a, b) => {
-          return a.timestamp - b.timestamp;
+          return b.timestamp - a.timestamp;
         });
         this.setState({ recent });
       });
