@@ -11,7 +11,7 @@ const RecentList = ({ items, leaderboard }) => (
     <strong>Recent events</strong>
     <Recent>
       {items.map(({ points, reason, user }, index) =>
-        <RecentItem isFirst={index === 0}>
+        <RecentItem isFirst={index === 0} key={`${user}_${reason}`}>
           <Upper>
             <Points>{points}</Points>
             <User>{leaderboard[user].nickname}</User>

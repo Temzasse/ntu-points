@@ -34,7 +34,11 @@ class PointsControls extends Component {
 
     if (reason && total !== null) {
       this.props.updatePoints(itemKey, item.points + total);
-      this.props.addHistoryEvent(itemKey, { reason, points: total });
+      this.props.addHistoryEvent(itemKey, {
+        reason,
+        points: total,
+        user: itemKey,
+      });
       this.reset();
     }
   }
