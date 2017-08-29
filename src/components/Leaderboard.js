@@ -56,8 +56,6 @@ class Leaderboard extends Component {
       return 0;
     });
 
-    console.debug('[recent]', recent);
-
     return (
       <LeaderboardWrapper noScroll={modalVisible}>
         <Header>

@@ -52,7 +52,7 @@ class App extends Component {
     
     this.db.ref('history')
       .orderByChild('timestamp')
-      .limitToLast(3)
+      .limitToLast(6)
       .on('value', snapshot => {
         const data = snapshot.val() || {};
         const recent = Object.values(data).sort((a, b) => {
