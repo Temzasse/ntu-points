@@ -33,12 +33,12 @@ class PointsControls extends Component {
     const { reason, total } = this.state;
 
     if (reason && total !== null) {
-      this.props.updatePoints(itemKey, item.points + total);
       this.props.addHistoryEvent(itemKey, {
         reason,
         points: total,
         user: itemKey,
       });
+      this.props.updatePoints(itemKey, item.points + total);
       this.reset();
     }
   }
@@ -49,6 +49,7 @@ class PointsControls extends Component {
 
   render() {
     const { reason, total } = this.state;
+    console.debug('[ITEM KEY]', this.props.itemKey);
 
     return (
       <PointsControlsWrapper>
